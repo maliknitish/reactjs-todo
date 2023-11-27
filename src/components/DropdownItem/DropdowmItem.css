@@ -1,0 +1,19 @@
+.dropdownDiv {
+  display: flex;
+  justify-content: space-between;
+  padding: 1vw;
+  color: gray;
+}
+
+.dropdownSelect {
+  width: 7vw;
+  border: 0.1vw solid gray;
+  border-radius: 0.3vw;
+  padding-left: 0.3vw;
+}
+
+@media screen and (max-width: 950px) {
+  .dropdownSelect {
+    width: auto;
+  }
+}

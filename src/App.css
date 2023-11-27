@@ -1,0 +1,46 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  background-color: rgb(236, 236, 236);
+  display: flex;
+  min-width: 100%;
+  width: fit-content;
+}
+
+.topDisplayBtn {
+  display: flex;
+  margin: 1vw;
+  padding: 0.3vw;
+  justify-content: space-evenly;
+  width: 8vw;
+  background-color: white;
+  border: 0.1vw solid gray;
+  border-radius: 0.3vw;
+}
+
+.dropdownBox {
+  background-color: #f1eded;
+  width: 25vw;
+  margin: 0.5vw;
+  border: 0.1vw solid gray;
+  border-radius: 0.5vw;
+  position: absolute;
+  z-index: 10;
+}
+
+@media screen and (max-width: 950px) {
+  .App {
+    flex-direction: column;
+  }
+
+  .dropdownBox {
+    width: auto;
+  }
+
+  .topDisplayBtn {
+    width: auto;
+  }
+}
