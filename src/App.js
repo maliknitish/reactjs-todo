@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./App.css";
 import MessageBox from "./components/MessageBox/MessageBox";
 import DropdownItem from "./components/DropdownItem/DropdowmItem.js";
@@ -20,6 +20,8 @@ function App() {
   // );
   const [groupingValue, setGroupingValue] = useState("User");
   const [orderingValue, setOrderingValue] = useState("Priority");
+  const dropdownBoxRef = useRef();
+  const displayBtnRef = useRef();
 
   const priorityMapping = new Map();
   priorityMapping.set("0", "No priority");
@@ -158,24 +160,23 @@ function App() {
   }, [data]);
 
   // // close the dropdown box when clicked outside -> Error : Not able to choose grouping and ordering
-  // useEffect(() => {
-  //   let dropdownBox = document.getElementById("dropdownBox");
+  useEffect(() => {
+    const handler = (event) => {
+      if (isdisplayOpen === false) return;
 
-  //   const handler = (event) => {
-  //     if (isdisplayOpen === false) return;
+      if (
+        !dropdownBoxRef.current.contains(event.target) &&
+        !displayBtnRef.current.contains(event.target)
+      ) {
+        setIsDisplayOpen(false);
+      }
+    };
 
-  //     console.log("running");
-
-  //     if (dropdownBox !== null && !dropdownBox.contains(event.target)) {
-  //       setIsDisplayOpen(false);
-  //     }
-  //   };
-
-  //   document.addEventListener("click", handler, true);
-  //   return () => {
-  //     document.removeEventListener("click", handler);
-  //   };
-  // }, [isdisplayOpen]);
+    document.addEventListener("mousedown", handler);
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
+  });
 
   // runs when grouping value changes in dropdown
   useEffect(() => {
@@ -205,6 +206,7 @@ function App() {
           onClick={() => {
             setIsDisplayOpen(!isdisplayOpen);
           }}
+          ref={displayBtnRef}
         >
           <BiAbacus />
           <p>Display</p>
@@ -212,7 +214,7 @@ function App() {
         </button>
       </div>
       {isdisplayOpen && (
-        <div id="dropdownBox" className="dropdownBox">
+        <div id="dropdownBox" className="dropdownBox" ref={dropdownBoxRef}>
           <DropdownItem
             selectId="select1"
             itemName="Grouping"
